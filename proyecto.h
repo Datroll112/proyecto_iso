@@ -9,6 +9,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <fstream>
 
 using namespace std;
 
@@ -18,15 +19,11 @@ class Usuario{
 
         list<string> lista_usuarios_ ;
         map<string,int> lista_contrasenas_usuarios_ ;
-        string organizador_ = "Luis" ;
-        string contrasena_organizador = "1234" ;
-        string director_academico_ ;
-        string contrasena_director_academico_ ;
 
     public:
 
-        Usuario( string director_academico , string contrasena_director_academico ){ director_academico_ = director_academico , contrasena_director_academico_ = contrasena_director_academico ; }
-        int Login( string usuario, string contraseña ) ; // Devuelve 0 si el usuario no existe,  1 si es un usuario registrado, 2 si es el director academico, 3 si es el organizador y 4 si es un visitante. 
+        int Login( string usuario, string contraseña ) ; // Devuelve 0 si el usuario no existe,  1 si es un usuario registrado, 2 si es el director academico y 3 si es el organizador.
+        void Designar_director_academico( string usuario, string contraseña ) ;
 
 } ;
 
@@ -44,36 +41,14 @@ class Actividad_academica{
         float precio_ ;
         string material_necesario_ ;
 
-        // el int de los mapas es el numero de la actividad
-
-        map<int,string> lista_tematicas_ ;
-        map<int,string> lista_ubicaciones_ ;
-        map<int,string> lista_fechas_ ;
-        map<int,string> lista_aforos_ ;
-        map<int,string> lista_asistentes_ ;
-        map<int,string> lista_duraciones_ ;
-        map<int,string> lista_precios_ ;
-        map<int,string> lista_materiales_necesarios_ ;
-
     public:
 
-        Actividad_academica( int numero_act , string tematica , string ubicacion , string fecha , string aforo , string asistentes , int duracion , float precio , string material_necesario ){
+        Actividad_academica( int numero_act = 0 , string tematica = "not found" , string ubicacion = "not found"  , string fecha = "not found"  , string aforo = "not found"  , string asistentes = "not found"  , int duracion = 0 , float precio = 0 , string material_necesario = "not found" ){
             numero_act_ = numero_act , tematica_ = tematica , ubicacion_ = ubicacion , fecha_ = fecha , aforo_ = aforo , asistentes_ = asistentes , duracion_ = duracion , precio_ = precio , material_necesario_ = material_necesario ;
         }
-        bool Crear_actividad() ; // almacena los datos de una actividad en los mapas y crea un fichero con unicamente la actividad creada.
+        void Crear_actividad() ; // almacena los datos de una actividad en los mapas y crea un fichero con unicamente la actividad creada.
         void Visualizar_act() ; // crea un fichero con todas las actividades. 
-
-} ;
-
-class Visitante: public Usuario{
-
-    private:
-
-
-
-    public:
-
-        void Registro( string usuario, string contrasena ) ; // anade un nuevo usuario registrado.
+        bool Eliminar_act( int numero_ac ) ; // true exito, false fracaso
 
 } ;
 
@@ -81,17 +56,17 @@ class Usuario_regristrado: public Usuario, public Actividad_academica{
 
     private:
 
-        map<int,string> lista_asistentes_ ;
+
 
     public:
 
-        bool Inscripcion( int actividad ) ; // 1 exito, 0 fracaso.
-        bool Cancelacion() ; // 1 exito, 0 fracaso.
+        void Inscripcion( int actividad , string usuario ) ; // añade el usuario a la lista de asistentes de una actividad
+        void Cancelacion( int actividad , string usuario ) ; // elimina al usuario de la lista de asistencia
         void Ver_asistencia() ; // imprime por pantalla los asistentes
 
 } ;
 
-class Director_academico: public Usuario, public Mailing{
+class Director_academico: public Usuario, public Mailing, public Actividad_academica{
 
     private:
 
@@ -112,7 +87,7 @@ class Mailing{
 
     public:
 
-        Mailing( int id_mailing , string mensaje_mailing ){ id_mailing_ = id_mailing , mensaje_mailing_ = mensaje_mailing ; }
+        Mailing( int id_mailing = 0 , string mensaje_mailing = "not found" ){ id_mailing_ = id_mailing , mensaje_mailing_ = mensaje_mailing ; }
         void Crear_mail( int id , string mensaje ) ; // crea un fichero con el id y el mensaje del mail
 
 } ;
