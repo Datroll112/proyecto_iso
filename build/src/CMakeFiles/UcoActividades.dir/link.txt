@@ -1,0 +1,2 @@
+/usr/bin/ar qc libUcoActividades.a CMakeFiles/UcoActividades.dir/UcoActividades-Funciones.cc.o
+/usr/bin/ranlib libUcoActividades.a

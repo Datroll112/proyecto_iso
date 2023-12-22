@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/UcoActividades-main.dir/UcoActividades-main.cc.o -o UcoActividades-main  libUcoActividades.a 

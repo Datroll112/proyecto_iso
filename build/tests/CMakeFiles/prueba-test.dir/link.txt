@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/prueba-test.dir/prueba-test.cc.o -o prueba-test  ../src/libUcoActividades.a ../lib/libgtest_main.a ../lib/libgmock_main.a ../lib/libgmock.a ../lib/libgtest.a 
