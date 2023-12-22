@@ -12,13 +12,8 @@
         int id ;
         string user ;
         string password ;
-        Usuario aux ;
         string mensaje ;
-        Actividad_academica aux2 ;
-        Usuario_regristrado aux3 ;
-        Director_academico aux4 ;
-        Mailing aux5 ;
-     
+
             do {
 
                 cout << "Menú:" << endl;
@@ -38,22 +33,35 @@
                     cout << "Introduzca contraseña: " ;
                     cin >> password ;
 
-                    if( aux.Login( user , password ) == 0 ){
+                        usuario = Login( user , password ) ;
 
-                        cout << "\nERROR al iniciar sesion" <<endl ;
+                            switch (usuario) {
+                                case 3:
+                                cout << "Las credenciales se encontraron en el archivo 'Organizador.txt'." << endl;
+                                break;
+                                case 2:
+                                cout << "Las credenciales se encontraron en el archivo 'Director Academico.txt'." << endl;
+                                break;
+                                case 1:
+                                cout << "Las credenciales se encontraron en el archivo 'Usuarios.txt'." << endl;
+                                break;
+                                case 0:
+                                cout << "Las credenciales no se encontraron en ninguno de los archivos." << endl;
+                                break;
+                                case -1:
+                                cout << "No se pudo crear el archivo 'Organizador.txt'." << endl;
+                                break;
+                                default:
+                                cout << "Error desconocido." << endl;
+                                break;
+                            } 
 
-                    }else{
-
-                        usuario = aux.Login( user , password ) ;
-
-                    }
+                    opcion = 0 ;
 
                 break;
                 case 2:
 
-                    aux2.Visualizar_act() ;
-
-                    cout <<"\nSe ha creado un fichero con todas las actividades academicas " << endl ;
+                    Visualizar_act() ;
 
                 break;
                 default:
@@ -61,9 +69,9 @@
                 break;
                 } 
 
-            } while (opcion != 0 || usuario != 5 );
+            } while (opcion != 0);
 
-            if( usuario = 1 ){
+            if( usuario == 1 ){
 
                 do {
 
@@ -81,30 +89,36 @@
                     
                     case 1: 
 
-                    cout << "Introduzca el numero de la actividad en la que se quiere inscribir: " ;
-                    cin >> actividad ;
+                    cout << "Ingrese el número: ";
+                    cin >> actividad;
+                    cin.ignore(); // Limpiar el buffer del teclado
 
-                    aux3.Inscripcion( actividad , user ) ;
+                    cout << "Ingrese el nombre de usuario: ";
+                    getline(cin, user);
+
+                    Inscripcion( actividad , user ) ;
 
                     break;
                     case 2: 
 
-                    cout << "Introduzca el numero de la actividad para cancelar su asistencia: " ;
-                    cin >> actividad ;
+                    cout << "Ingrese el número a eliminar: ";
+                    cin >> actividad;
+                    cin.ignore(); // Limpiar el buffer del teclado
 
-                    aux3.Cancelacion( actividad , user ) ;
+                    cout << "Ingrese el nombre de usuario: ";
+                    getline(cin, user);
+
+                    Cancelacion( actividad , user ) ;
 
                     break;
                     case 3: 
 
-                    aux3.Ver_asistencia() ;
+                    Ver_asistencia() ;
 
                     break;
                     case 4:
 
-                    aux2.Visualizar_act() ;
-
-                    cout <<"\nSe ha creado un fichero con todas las actividades academicas " << endl ;
+                    Visualizar_act() ;
 
                     break;
                     default:
@@ -116,7 +130,7 @@
 
             }
 
-            if( usuario = 2 ){
+            if( usuario == 2 ){
 
                 do {
 
@@ -134,38 +148,28 @@
                     
                     case 1: 
 
-                        cout << "\nInserte el usuario que quiere eliminar: " ;
-                        cin >> user ;
+                        cout << "Ingrese el nombre de usuario a eliminar: ";
+                        getline(cin, user);
 
-                        aux4.Eliminar_usuario_registrado( user ) ;
+                        Eliminar_usuario_registrado( user ) ;
 
                     break;
                     case 2: 
 
-                        aux4.Crear_actividad() ;
+                        Crear_actividad() ;
 
                     break;
                     case 3: 
 
-                        cout << "\nInserte el numero de la actividad que quiere eliminar: " ;
-                        cin >> actividad ;
+                        cout << "Ingrese el número de la actividad a eliminar: ";
+                        cin >> actividad;
 
-                        if( aux4.Eliminar_act( actividad ) == true ){
-
-                            cout << "\nActividad eliminada con exito" << endl ;
-
-                        }else{
-
-                            cout << "\nERROR al eliminar" <<endl ;
-
-                        }
+                        Eliminar_act( actividad ) ;
 
                     break;
                     case 4:
 
-                    aux2.Visualizar_act() ;
-
-                    cout <<"\nSe ha creado un fichero con todas las actividades academicas " << endl ;
+                        Visualizar_act() ;
 
                     break;
                     default:
@@ -177,17 +181,18 @@
 
             }    
 
-            if( usuario = 2 ){
+            if( usuario == 3 ){
 
                 do {
 
                 cout << "Menú:" << endl;
                 cout << "1. Eliminar usuario registrado" << endl;
-                cout << "2. Crear actividad academica" << endl;
-                cout << "3. Eliminar actividad academica" << endl;
-                cout << "4. Visualizar actividades" << endl;
-                cout << "5. Designar director academico" <<endl ;
-                cout << "6. Crear mail" <<endl ;
+                cout << "2. Crear usuario registrado" << endl;
+                cout << "3. Crear actividad academica" << endl;
+                cout << "4. Eliminar actividad academica" << endl;
+                cout << "5. Visualizar actividades" << endl;
+                cout << "6. Designar director academico" <<endl ;
+                cout << "7. Crear mail" <<endl ;
                 cout << "0. Salir" << endl;
 
                 cout << "\nIngrese su elección: ";
@@ -197,58 +202,59 @@
                     
                     case 1: 
 
-                        cout << "\nInserte el usuario que quiere eliminar: " ;
-                        cin >> user ;
+                        cout << "Ingrese el nombre de usuario a eliminar: ";
+                        getline(cin, user);
 
-                        aux4.Eliminar_usuario_registrado( user ) ;
+                        Eliminar_usuario_registrado( user ) ;
 
                     break;
                     case 2: 
 
-                        aux4.Crear_actividad() ;
+                        cout << "\nInserte el usuario que quiere crear: " ;
+                        cin >> user ;
+                        cout << "\nInserte su contraseña: " ;
+                        cin >> password ;
+
+                        Crear_usuario( user, password ) ;
 
                     break;
                     case 3: 
 
-                        cout << "\nInserte el numero de la actividad que quiere eliminar: " ;
-                        cin >> actividad ;
-
-                        if( aux4.Eliminar_act( actividad ) == true ){
-
-                            cout << "\nActividad eliminada con exito" << endl ;
-
-                        }else{
-
-                            cout << "\nERROR al eliminar" <<endl ;
-
-                        }
+                        Crear_actividad() ;
 
                     break;
-                    case 4:
+                    case 4: 
 
-                    aux2.Visualizar_act() ;
+                        cout << "Ingrese el número de la actividad a eliminar: ";
+                        cin >> actividad;
 
-                    cout <<"\nSe ha creado un fichero con todas las actividades academicas " << endl ;
+                        Eliminar_act( actividad ) ;
 
                     break;
-                    case 5: 
+                    case 5:
+
+                        Visualizar_act() ;
+
+                    break;
+                    case 6: 
 
                         cout << "\nInserte el usuario de el director academico: " ;
                         cin >> user ;
                         cout << "\nInserte la contrasena de el director academico: " ;
                         cin >> password ;
 
-                        aux4.Designar_director_academico( user , password ) ;
+                        Designar_director_academico( user , password ) ;
 
                     break;
-                    case 6: 
+                    case 7: 
 
-                        cout << "\nInserte el id del mail: " ;
+                        cout << "Ingrese el ID: ";
                         cin >> id ;
-                        cout << "\nInserte el mensaje del mail a crear: " ;
-                        cin >> mensaje ;
 
-                        aux5.Crear_mail( id , mensaje ) ;
+                        cout << "Ingrese el mensaje: ";
+                        getline( cin, mensaje ) ;
+
+                        Crear_mail( id , mensaje ) ;
 
                     break;
                     default:
