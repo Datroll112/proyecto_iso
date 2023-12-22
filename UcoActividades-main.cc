@@ -192,7 +192,6 @@
                 cout << "4. Eliminar actividad academica" << endl;
                 cout << "5. Visualizar actividades" << endl;
                 cout << "6. Designar director academico" <<endl ;
-                cout << "7. Crear mail" <<endl ;
                 cout << "0. Salir" << endl;
 
                 cout << "\nIngrese su elección: ";
@@ -246,17 +245,7 @@
                         Designar_director_academico( user , password ) ;
 
                     break;
-                    case 7: 
-
-                        cout << "Ingrese el ID: ";
-                        cin >> id ;
-
-                        cout << "Ingrese el mensaje: ";
-                        getline( cin, mensaje ) ;
-
-                        Crear_mail( id , mensaje ) ;
-
-                    break;
+                    
                     default:
                     cout << "Opcion no valida" << endl;
                     break;

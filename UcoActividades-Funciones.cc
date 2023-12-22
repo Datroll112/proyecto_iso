@@ -250,7 +250,7 @@ void Eliminar_usuario_registrado( string usuario ){
 
     archivoEntrada.close();
 
-    if (!usuarioEncontrado) {
+    if (usuarioEncontrado == false) {
         cout << "El usuario no fue encontrado en el archivo." << endl;
         remove("Usuarios_temp.txt");
         return;
